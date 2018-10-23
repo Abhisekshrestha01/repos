@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="practice_1.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="css/style1.css" rel="stylesheet" />
+    <title></title>
+    
+</head>
+<body style="width:90%; margin:auto;" >
+        <div style="height:20%; padding:20px; background-color:#17a2b8; width: 100%" >
+            <asp:HyperLink ID="HyperLink1" runat="server" ImageHeight="60px" ImageUrl="~/Image/Logo_TV_2015.png" ImageWidth="60px" NavigateUrl="http://localhost:58911/Defaults.aspx">HyperLink</asp:HyperLink>
+           <h1 align="center" style="margin:auto;">ABC Website</h1>
+        </div>
+    <div class="topnav" id="myTopnav">
+  <a href="Defaults.aspx">Register</a>
+  <a href="LogIn.aspx">LogIn</a>
+  
+</div>
+        <div align="center" style="background-color:#D8D8D8;">
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+        </div>
+        <div style="height:5%; padding:10px; background-color:#17a2b8; width:100%;" align="center">
+            <b>Copyright</b>
+        </div>
+</body>
+</html>

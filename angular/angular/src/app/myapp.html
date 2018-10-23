@@ -1,0 +1,19 @@
+﻿<my_employee></my_employee>
+<list_employee></list_employee>
+Name:<input [(ngModel)]='firstname'>
+Your value:{{firstname}}
+Your Text : <input type='text' [(ngModel)]='userText'>
+<br />
+<simple [simpleInput]='userText'></simple>
+<div style="padding:5px">
+    <ul class="nav nav-tabs">
+        <li routerLinkActive="active">
+            <a routerLink="home">Home</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="employee">Employees</a>
+        </li>
+    </ul>
+    <br />
+    <router-outlet></router-outlet>
+</div>

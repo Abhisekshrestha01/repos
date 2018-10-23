@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "ChannelType";
+}
+
+
+<h2>Channel Types</h2>
+<ul>
+
+    @foreach (string str in (List<string>)ViewData["ChannelType"])
+    {
+        <li>
+            @str
+        </li>
+    }
+</ul>

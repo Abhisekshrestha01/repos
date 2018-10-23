@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Mvc4Application.Models.MyChannels>
+
+@{
+    ViewBag.Title = "_masterlayout";
+    Layout = "~/Views/Shared/_masterlayout.cshtml";
+}
+
+@foreach (var item in Model) {
+    @Html.Partial("_employee",item)
+}
+
+
+
+

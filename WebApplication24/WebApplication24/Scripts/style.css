@@ -1,0 +1,17 @@
+body { 
+font-family: Times New Roman; 
+font-size:1vw; 
+}
+			h1 { text-align:center; }
+			.container { width: 60%; text-align:center; }
+			.row { margin: 3px 0px; }
+			label { display:inline-block; width:90px; text-align:right; font-weight:bold; }
+			input:focus, textarea:focus { border-color: #000 }
+			.inputbox { border: 0.5 solid #999; width:200px; padding:6px; border-radius:4px; }
+			input::-webkit-input-placeholder{ color:grey; opacity:0.2;}
+			.space { margin: 0px 45px; }
+			button { height: 25px; width:67px; border-radius:50px; text-align:center; font-size:16px; box-shadow:0 2px #999}
+			button:hover { background-color:#3e8e41 }
+			#dropdowndesign { border: 0.5 solid #999; width:200px; padding:6px; border-radius:4px; }
+			#textareadesign { vertical-align:top; width:200px; height:6em; border-radius:5px; }
+			#framedesign { border-radius:5px; background-color:#f2f2f2; padding:15px; width:95%;  border:1px; margin:5px 5px;}

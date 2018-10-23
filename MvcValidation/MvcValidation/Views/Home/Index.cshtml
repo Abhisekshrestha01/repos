@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Comment</h2>
+@using (Html.BeginForm("GetComment","Home", FormMethod.Post))
+{
+    @Html.TextBox("Comment")
+    <input type="submit" value="submit" />
+}
+
+

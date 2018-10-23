@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "numberaddition", "numberaddition\numberaddition.csproj", "{B7AB3473-D684-48B7-B252-4229C2291211}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7AB3473-D684-48B7-B252-4229C2291211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7AB3473-D684-48B7-B252-4229C2291211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7AB3473-D684-48B7-B252-4229C2291211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7AB3473-D684-48B7-B252-4229C2291211}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7022AEDF-F7AA-48C4-8227-3D6E87FC8DA3}
+	EndGlobalSection
+EndGlobal

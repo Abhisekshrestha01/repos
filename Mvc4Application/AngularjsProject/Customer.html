@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="CustomerModule">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+
+    <script src="scripts/angular-route.min.js"></script>
+    <link href="styles/Styles.css" rel="stylesheet" />
+    <script src="scripts/customer.js?v=14"></script>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Shopping Cart</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#/customer">Supplier</a></li>
+                <li><a href="#/product">Product</a></li>
+
+            </ul>
+        </nav>
+
+        <article>
+            <ng-view></ng-view>
+        </article>
+
+        <footer>Copyright &copy; W3Schools.com</footer>
+
+    </div>
+</body>
+</html>

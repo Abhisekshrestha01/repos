@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "_masterlayout";
+}
+
+<h2>_masterlayout</h2>
+<table>
+
+    <tr>
+        <td colspan="2" height="200px" style="background-color:gainsboro">
+            My Header
+        </td>
+    </tr>
+    <tr>
+        <td style="width:20%;height:800px">My Navigation</td>
+        <td>
+            @RenderBody()
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" height="20px" style="background-color:gainsboro">
+            My Footer
+        </td>
+    </tr>
+</table>

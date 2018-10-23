@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "ViewResult";
+}
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">View Election Result</h1>
+    <br />
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
+    </div>
+</div>
+<form>
+    
+    <div class="form-group">
+        <label for="exampleSelect1">Select Type</label>
+        <select class="form-control" id="userDropDown" onchange="onUserDropDownChange();">
+            <option value="" disabled selected>Select your option</option>
+            <option value="1">View as candidate</option>
+            <option value="2">View as voter</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Select Election</label>
+        <select class="form-control" id="electionDropDown" onchange="onElectionDropDownChange();">
+            <option value="" disabled selected>Select your option</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <table class="table table-hover table-bordered" id="tblResult">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">SNO</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Total Votes</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+   
+</form>
+
+<script type="text/javascript">
+    function onUserDropDownChange() {
+        var userSelection = $("#userDropDown").val();
+        if (userSelection == 1)
+        {
+            //view as candidate
+            $.ajax({
+                type: "GET",
+                url: '/Election/GetElectionForCandidate/',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log(result);
+                    $("#electionDropDown").find('option').not(':first').remove();
+                    $.each(result, function (index, item) {
+                        $("#electionDropDown").append($("<option/>").val(item.Id).text(item.Name));
+                    });
+
+                },
+                error: function (result) {
+
+                }
+            });
+        }
+        if (userSelection == 2) {
+
+            //view as voter
+            $.ajax({
+                type: "GET",
+                url: '/Election/GetAllElectionAsVoter/',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log(result);
+                    $("#electionDropDown").find('option').not(':first').remove();
+                    $.each(result, function (index, item) {
+                        $("#electionDropDown").append($("<option/>").val(item.Id).text(item.Name));
+                    });
+                    
+                },
+                error: function (result) {
+                    
+                }
+            });
+        }
+    }
+
+    function onElectionDropDownChange() {
+        var electionId = $("#electionDropDown").val();
+        $.ajax({
+            type: "GET",
+            url: '/Election/GetElectionResult/',
+            data: { electionId: electionId },
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                console.log(result);
+                var count = 0;
+                $("#tblResult > tbody").html("");
+                for (i = 0; i < result.length; i++) {
+                   
+                    count = parseInt(count) + 1;
+                    $('#tblResult >tbody').append('<tr><td>' + count+ '</td><td>' + result[i].Name + '</td><td>'+result[i].totalVotes+'</td></tr>');
+                }
+                
+
+            },
+            error: function (result) {
+
+            }
+        });
+
+
+    }
+</script>

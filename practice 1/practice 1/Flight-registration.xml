@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Flights flightno="BR102">
+  <fligHtName>Emirates</fligHtName>
+  <DepartureCity>Houston</DepartureCity>
+  <DepartureDate>8/19/2018</DepartureDate>
+  <ArrivalCity>Dallas</ArrivalCity>
+  <ArrivalTime>02:35</ArrivalTime>
+  <NoOfSeats>35</NoOfSeats>
+  <Flights>
+    <flightno>rdfg56</flightno>
+    <fligHtName>Emirates</fligHtName>
+    <DepartureCity>fgbh</DepartureCity>
+    <DepartureDate>8/21/2018</DepartureDate>
+    <ArrivalCity>fgvbhjn</ArrivalCity>
+    <ArrivalTime>fcgvhbj</ArrivalTime>
+    <NoOfSeats>54678</NoOfSeats>
+  </Flights>
+</Flights>

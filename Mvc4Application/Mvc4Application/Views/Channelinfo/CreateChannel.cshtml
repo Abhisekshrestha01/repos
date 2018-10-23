@@ -1,0 +1,49 @@
+﻿@model Mvc4Application.Models.MyChannels
+
+@{
+    ViewBag.Title = "CreateChannel";
+}
+
+
+
+<div style="float:left;width:100%">
+    <h2>Create Channel</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>My Channels</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Type", new List<SelectListItem> { new SelectListItem{Text="Device", Value="Device"},new SelectListItem{Text="API", Value="API"},new SelectListItem{Text="Database", Value="Database"},
+               new SelectListItem{Text="File", Value="File"}},"Select Type")
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+      
+       
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+
+

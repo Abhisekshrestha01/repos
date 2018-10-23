@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="753f2245f81f411eb3b7b6622638b719" Name="Diagram1">
+        <EntityTypeShape EntityType="ElectionDBModel.CandidateElection" Width="1.5" PointX="6.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.CapableVoter" Width="1.5" PointX="8.625" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.Election" Width="1.5" PointX="2.125" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.Gender" Width="1.5" PointX="2.125" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.Notification" Width="1.5" PointX="10.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.User" Width="1.5" PointX="4.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.VoterElection" Width="1.5" PointX="6.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectionDBModel.ElectionResult" Width="1.5" PointX="8.625" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="ElectionDBModel.fk_candidateelection_electionid" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_candidateelection_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_RequestElectionVoter_electionid" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_RequestElectionVoter_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_election_adminId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_electionresult_electionId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_voterelection_electionId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_gender_user_genderId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_notification_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_electionresult_winnerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_voterelection_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectionDBModel.fk_voterelection_voterid" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

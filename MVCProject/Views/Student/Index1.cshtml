@@ -1,0 +1,82 @@
+﻿@using MVCProject.Models;
+@model Student
+@{
+    ViewBag.Title = "Index1";
+
+}
+<br />
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">@Html.Label("Name:")</div>
+    <div class="col-lg-2">
+        @Html.TextBox("name", "", new
+{
+    @class = "form-control"
+
+
+})
+    </div>
+    <div class="col-lg-4"></div>
+
+</div>
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">@Html.Label("Age:")</div>
+    <div class="col-lg-4">
+        Male @Html.RadioButton("Gender", "Male")
+        Female @Html.RadioButton("Gender", "Female")
+    </div>
+    <div class="col-lg-2"></div>
+
+</div>
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">@Html.Label("Comment:")</div>
+    <div class="col-lg-2">
+        @Html.TextArea("Comment","",new {
+       @class = "form-control"
+   })
+    </div>
+    <div class="col-lg-4"></div>
+
+</div>
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">@Html.Label("Education:")</div>
+    <div class="col-lg-2">
+      Higher Secondary @Html.CheckBox("Higher Secondary", true)
+      Bachelor @Html.CheckBox("Bachelor", true)
+     Master @Html.CheckBox("Master", true)
+    </div>
+    <div class="col-lg-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2">@Html.Label("Name:")</div>
+        <div class="col-lg-2">
+            @Html.TextBox("name", "", new
+        {
+        @class = "form-control"
+
+
+        })
+        </div>
+        <div class="col-lg-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-2">@Html.Label("Name:")</div>
+            <div class="col-lg-2">
+                @Html.TextBox("name", "", new
+            {
+            @class = "form-control"
+
+
+            })
+            </div>
+            <div class="col-lg-4"></div>
+
+        </div>
+
+
+

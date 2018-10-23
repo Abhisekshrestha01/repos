@@ -1,0 +1,23 @@
+﻿@model MVCVideo.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> @Html.DisplayFor(model => model.Name) </h2>
+
+<div class="container">
+<ul>
+    <li>
+        Membership Type: @Html.DisplayFor(model => model.MembershipType.Name)
+    </li>
+    <li>
+        Birthday : @Html.DisplayFor(model => model.DOB)
+    </li>
+</ul>
+    </div>
+
+        
+
+      

@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -Online Election</title>
+
+
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+   
+    <link href="~/Content/sticky-footer-navbar.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/main.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+</head>
+<body>
+
+
+    <header>
+        <!-- Fixed navbar -->
+        @*<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">Online Election</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                   
+                </ul>
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Notification
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="notificationBar">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+                @Html.ActionLink("Logout", "SignOut", "Login")
+
+               
+            </div>
+        </nav>*@
+        
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 navbar-custom fixed-top">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style="font-size:30px;"> <b><span>O</span>nline Election</b> </a>
+           
+            
+                @*<div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Notification
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="notificationBar">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                    </div>*@
+
+
+                
+                
+                <ul class="navbar-nav px-5">
+                    @*<li class="nav-item text-nowrap">
+                        <a class="nav-link" href="#"><i class="fa fa-bell-o" style="font-size:48px;color:red"></i></a>
+                    </li>*@
+                    <li class="nav-item text-nowrap">
+                        <a class="nav-link" href="/Login/SignOut">Sign out</a>
+                    </li>
+                </ul>
+            
+            
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="min-height:850px;">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/Home/Index">
+                                    <i class="fa fa-line-chart"></i>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Election/Index">
+
+                                    <i class="fa fa-tasks"></i>
+                                    Create Election
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Election/CastVoteIndex">
+                                    <i class="fa fa-leaf"></i>
+                                    Cast Vote
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Election/ViewResult">
+                                    <i class="fa fa-square"></i>
+                                    View Results
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Election/AllElection">
+                                    <i class="fa fa-square"></i>
+                                    View All Election
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Login/Profile">
+                                    <i class="fa fa-square"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Saved reports</span>
+                            <a class="d-flex align-items-center text-muted" href="#">
+                                
+                            </a>
+                        </h6>
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-th"></i>
+                                    Current month
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-th"></i>
+                                    Last quarter
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </nav>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="margin-bottom:80px;">
+                    @RenderBody()
+                </main>
+
+            </div>
+
+          
+        </div>
+    
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Online Election</span>
+        </div>
+    </footer>
+</body>
+</html>
+

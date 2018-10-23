@@ -1,0 +1,253 @@
+﻿@model BOL.ViewModel.LoginViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+@*<html>
+<head>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <style type="text/css">
+        label {
+            font-weight: bold;
+        }
+
+        .register-div {
+            background-color: #f8f9fa;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            width: 43%;
+            padding: 20px;
+        }
+    </style>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/main.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 navbar-custom fixed-top">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style="font-size:30px;"> <b><span>O</span>nline Election</b> </a>
+
+
+        </nav>
+    </header>
+    <div class="register-div">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Register</h4>
+                <hr />
+                @{
+                    if (TempData["Msg"] != null)
+                    {
+                        <h4>@TempData["Msg"]</h4>
+                    }
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">First Name</label>
+
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Middle Name</label>
+
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.middleName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.middleName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Last Name</label>
+
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Gender</label>
+
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.genderId, Model.listGender.Select(x => new SelectListItem() { Text = x.gender1, Value = x.genderId.ToString() }), "Select Gender", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.genderId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Email</label>
+
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Password</label>
+
+                    <div class="col-md-6">
+                        @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Confirm Password</label>
+
+                    <div class="col-md-6">
+
+                        @Html.PasswordFor(model => model.confirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-default" />
+                        <input type="button" value="Back to login" class="btn btn-default" onclick="window.location.href='Index'" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</body>
+</html>*@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/stylelogin.css">
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+        -->
+
+
+
+
+</head>
+
+<body>
+
+    <div class="signup__container" style="background-color:black;">
+
+        <div class="container__child signup__thumbnail">
+            <div class="thumbnail__logo">
+
+
+            </div>
+            <div class="thumbnail__content text-center" style="margin-left:auto; margin-right:auto;">
+                <h1 class="heading--primary">Have A Vision?</h1>
+                <h2 class="heading--secondary">Make The Right Decision!</h2>
+            </div>
+            <div class="thumbnail__links">
+
+            </div>
+            <div class="signup__overlay"></div>
+        </div>
+        <div class="container__child signup__form">
+            @using (Html.BeginForm("Register","Login",FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                
+                    if (TempData["Msg"] != null)
+                    {
+                    <h4 style="color:red;">@TempData["Msg"]</h4>
+                    }
+                
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label for="username">First Name</label>
+                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Middle Name</label>
+                        @Html.EditorFor(model => model.middleName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.middleName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Last Name</label>
+                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Gender</label>
+                        @Html.DropDownListFor(model => model.genderId, Model.listGender.Select(x => new SelectListItem() { Text = x.gender1, Value = x.genderId.ToString() }), "Select Gender", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.genderId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordRepeat">Repeat Password</label>
+                        @Html.PasswordFor(model => model.confirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
+                    </div>
+        <div class="m-t-lg">
+            <ul class="list-inline">
+                <li>
+                    <input type="submit" value="Register" class="btn btn--form" />
+                    @*<input type="button" value="Back to login" class="btn btn-default" onclick="window.location.href='Index'" />
+                    <input class="btn btn--form" type="submit" value="Register" />*@
+                </li>
+                <li>
+                    <a class="signup__link" href="#" onclick="window.location.href='Index'">I am already a member</a>
+                </li>
+            </ul>
+        </div>
+             }
+        </div>
+    </div>
+
+
+
+</body>
+
+

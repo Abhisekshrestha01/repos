@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBusiness", "MvcBusiness\MvcBusiness.csproj", "{0BA00734-C866-4BBA-988D-347FE676AFDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "businessLayer", "businessLayer\businessLayer.csproj", "{805FE1C5-2DCD-4AB0-B1BE-1C1ACA719262}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BA00734-C866-4BBA-988D-347FE676AFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BA00734-C866-4BBA-988D-347FE676AFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BA00734-C866-4BBA-988D-347FE676AFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BA00734-C866-4BBA-988D-347FE676AFDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805FE1C5-2DCD-4AB0-B1BE-1C1ACA719262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805FE1C5-2DCD-4AB0-B1BE-1C1ACA719262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805FE1C5-2DCD-4AB0-B1BE-1C1ACA719262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805FE1C5-2DCD-4AB0-B1BE-1C1ACA719262}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44155686-0159-48DA-8BBD-89116653AF94}
+	EndGlobalSection
+EndGlobal

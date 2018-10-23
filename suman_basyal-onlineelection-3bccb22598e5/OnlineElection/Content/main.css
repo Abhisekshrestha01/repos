@@ -1,0 +1,33 @@
+﻿.content-background {
+    background-color: #f7f7f7;
+    margin-top: 50px;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.theme-color {
+    background-color: #e95420;
+}
+
+
+.navbar-custom {
+    height: 80px;
+    line-height: 179px;
+    padding-top: 30px !important;
+}
+
+.sidebar-sticky a {
+    color: green;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.sidebar{
+    padding-top:80px;
+}
+
+.h2 {
+    color: #080f06;
+}

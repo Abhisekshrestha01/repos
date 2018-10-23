@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script typw="text/javascript">
+        $(document).ready(function () {
+            var ulEmployees = $('#ulEmployee');
+            $('#GetName').on('click', function () {
+                var username = $('#txtusername').val();
+                var password = $('#txtpassword').val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/Emp',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization' : 'Basic ' + btoa(username + ':' + password)
+                    },
+                    success: function (data) {
+                        ulEmployees.empty();
+                        $.each(data, function (index, val) {
+                            var fullName = val.FirstName + ' ' + val.LastName;
+                            ulEmployees.append('<li>' + fullName + '(' + val.Gender + ' )</li>');
+                        });
+                    },
+                    complete: function (jqXHR) {
+                        if (jqXHR.status == '401') {
+                            ulEmployees.empty();
+                            ulEmployees.append('<li style="color:red">' + jqXHR.status + ':' + jqXHR.statusText + '</li>');
+                        }
+                    }
+                });
+                $('#Clear').on('click', function () {
+                    ulEmployees.empty();
+                });
+            });
+        });
+    </script>
+    <title>
+    </title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">Username :</div>
+            <div class="col-lg-2"><input type="text" id="txtusername" name="txtusername" /></div>
+            <div class="col-lg-2">Password :</div>
+            <div class="col-lg-2"><input type="password" id="txtpassword" name="txtpassword" /></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6"><button id="GetName" class="btn btn-default">Get all Name</button></div>
+            <div class="col-lg-6"><button id="Clear" class="btn btn-default">Clear</button></div>
+        </div>
+        <div>
+            <ul id="ulEmployee">
+                
+
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

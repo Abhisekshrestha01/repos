@@ -1,0 +1,42 @@
+﻿@model mvclogin.Models.Login
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create User</h2>
+
+@using (Html.BeginForm("Insert","AddUser",FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-1">
+            @Html.LabelFor(m => m.Username)
+        </div>
+        <div class="col-lg-1">
+            @Html.EditorFor(m => m.Username)
+        </div>
+        <div class="col-lg-1">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="col-lg-1">
+            @Html.EditorFor(m => m.Password)
+        </div>
+        <div class="col-lg-1">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <input type="submit" id="button" value="Login" />
+        </div>
+
+        <div class="col-lg-1">
+
+        </div>
+    </div>
+}

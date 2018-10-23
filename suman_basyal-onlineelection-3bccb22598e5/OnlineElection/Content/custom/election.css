@@ -1,0 +1,12 @@
+﻿.election-card {
+    margin-top: 100px;
+    background-color: #f2f2f2 !important;
+    border-radius: 15px;
+    padding: 80px;
+}
+
+
+.election-form{
+    margin-left:30px;
+    padding-bottom:50px;
+}

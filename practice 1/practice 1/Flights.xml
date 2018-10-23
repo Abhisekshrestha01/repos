@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Flights>
+  <flight>
+    <flighId>Emirates</flighId>
+    <flightName>Emirates</flightName>
+  </flight>
+  <flight>
+    <flighId>British</flighId>
+    <flightName>British</flightName>
+  </flight>
+  <flight>
+    <flighId>QATAR</flighId>
+    <flightName>QATAR</flightName>
+  </flight>
+  <flight>
+    <flighId>Delta</flighId>
+    <flightName>Delta</flightName>
+  </flight>
+</Flights>

@@ -1,0 +1,27 @@
+﻿@model Mvc4Application.Models.MyChannels
+
+<table>
+    <tr>
+        <td> <img src="~/images/noimage.png" alt="image" width="20px" height="20px" /></td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => @Model.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @Model.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @Model.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = @Model.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = @Model.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = @Model.ID })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

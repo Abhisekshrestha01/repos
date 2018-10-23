@@ -1,0 +1,29 @@
+﻿@model MVCVideo.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+<div>
+    <ul>
+        <li>
+            Genre : @Html.DisplayFor(model => model.Genre.Name)
+        </li>
+        <li>
+            Release Date : @Html.DisplayFor(model => model.ReleaseDate)
+        </li>
+        <li>
+            Date Added : @Html.DisplayFor(model => model.DateAdded)
+        </li>
+        <li>
+            Number in Stock : @Html.DisplayFor(model => model.NumberInStuck)
+        </li>
+    </ul>
+
+</div>
+    

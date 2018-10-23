@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+
+<div ng-app="myModule" ng-controller="myController">
+
+    <ul>
+        <li ng-repeat="x in message | filter in name">
+            {{x.name}}
+            <ul>
+                <li ng-repeat="u in x.country">
+                    {{u}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <input type="text" ng-model="name" />
+
+
+    <div ng-include="'testshare.html'">
+
+    </div>
+</div>

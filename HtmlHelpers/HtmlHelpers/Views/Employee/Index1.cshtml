@@ -1,0 +1,12 @@
+﻿@model HtmlHelpers.Models.Employee
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Index1</h2>
+
+@Html.TextBoxFor(n => n.CompanyName)
+<br />
+@Html.DropDownListFor(n =>n.GetDepartment, new SelectList(Model.GetDepartment, "Id","Name"), "Select Department")
+

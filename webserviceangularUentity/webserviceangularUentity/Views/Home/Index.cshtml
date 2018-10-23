@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+<div ng-app="myApp">
+    <div ng-controller="myController">
+        <p>{{10+40}}</p>
+        <table>
+            <tr>
+                <td>Id</td>
+                <td>FirstName</td>
+                <td>LastName</td>
+                <td>Gender</td>
+                <td>Salary</td>
+            </tr>
+
+
+            <tr ng-repeat="employee as employees">
+                <td>{{employee.Name}}</td>
+                <td>{{employee.Country}}</td>
+                <td>{{employee.LastName}}</td>
+                <td>{{employee.Gender}}</td>
+                <td>{{employee.Salary}}</td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+

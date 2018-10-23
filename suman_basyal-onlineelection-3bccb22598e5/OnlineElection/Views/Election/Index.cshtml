@@ -1,0 +1,146 @@
+﻿@using BOL;
+@model BOL.Election
+
+@{
+    ViewBag.Title = "Index";
+    List<User> userList = ViewBag.userList;
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/custom/election.css" rel="stylesheet" />
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">New Election</h1>
+    <br />
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+    @using (Html.BeginForm("Create", "Election", FormMethod.Post,new {@class="election-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="">
+          
+
+            @if (TempData["Msg"] != null)
+                {
+                <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @TempData["Msg"]
+                </div>
+            }
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.electionName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.electionName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.electionName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.startDate, new { @class = "form-control datetime", @type = "datetime-local" })
+                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.endDate, new { @class = "form-control datetime", @type = "datetime-local" })
+                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Description", new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Election Candidate", new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.listOfCandidates, userList.Select(x => new SelectListItem
+                   {
+                       Text = x.email,
+                       Value = x.userId.ToString()
+                   }), new { @class = "form-control candidate-dropdown", @multiple = true })
+                    @Html.ValidationMessageFor(model => model.listOfCandidates, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Voters", new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.listOfVoters, userList.Select(x => new SelectListItem
+                   {
+                       Text = x.email,
+                       Value = x.userId.ToString()
+                   }), new { @class = "form-control voter-dropdown", @multiple = true })
+                    @Html.ValidationMessageFor(model => model.listOfVoters, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
+                    <input type="submit" value="Create" class="btn btn-outline-secondary" onclick="return validate();"/>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+  
+
+<script type="text/javascript">
+   
+    function validate() {
+        var flag = false;
+        var listOfCandidates = $("#listOfCandidates").val();
+        var listOfVoters = $("#listOfVoters").val();
+        for (i = 0; i < listOfCandidates.length; i++) {
+            for (j = 0; j < listOfVoters.length; j++) {
+                if (listOfCandidates[i] == listOfVoters[j]) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        if (flag == true) {
+            toastr["warning"]("Same person cannot be the voter and candidate together", "Error")
+            //alert("The same person cannot be the voter and cadidate");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+</script>
+
+
+
+
+

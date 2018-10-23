@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>Index</title>
+</head>
+<body>
+    <h3>Contact Us</h3>
+    <table>
+        <tr>
+            <td>
+                @Html.TextBox("txtname")
+               
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.TextBox("txtemail")
+               
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.TextArea("txtmessage")
+               
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="send-btn">
+                    <input id="Button1" type="button" value="button" />
+                    
+
+                </div>
+
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //$("#btnGet").click(function () {
+            //    var person = '{Name: "' + $("#txtName").val() + '" }';
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/api/AjaxAPI/AjaxMethod",
+            //        data: person,
+            //        contentType: "application/json; charset=utf-8",
+            //        dataType: "json",
+            //        success: function (response) {
+            //            alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+            //        },
+            //        failure: function (response) {
+            //            alert(response.responseText);
+            //        },
+            //        error: function (response) {
+            //            alert(response.responseText);
+            //        }
+            //    });
+            //});
+            $('#Button1').click(function () {
+                var name = $("#txtname").val();
+                var email = $("#txtemail").val();
+                var comment = $('#txtmessage').val();
+                var value = '{name:"' + name + '",email:"' + email + '",comment:"' + comment + '"}';
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/AjaxAPI/SendEmail',
+                    contentType: "application/json; charset=utf-8",
+                    data: value,
+                    dataType: 'json',
+
+                    success: function (data) {
+
+                        alert("Successfully data sent");
+
+                    },
+                    error: function (err, xhr) {
+                       //  alert('ff' + err.statusText);
+                        alert(value);
+                    },
+                    fail: function (xhr) {
+                        alert('kk' + xhr);
+                    }
+
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>

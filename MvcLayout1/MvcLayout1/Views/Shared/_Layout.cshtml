@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        <table border="1" style="width:800px; font-family:Arial;">
+            <tr>
+                <td colspan="2" style="text-align:center; background-color:orange; color:white;"><h3>Employee POrtal</h3></td>
+            </tr>
+            <tr>
+                <td style="width:200px; background-color:orange; color:white;">
+                    @if (IsSectionDefined("Menu"))
+                    {
+                        @RenderSection("Menu", false)
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Employee List", "Index")
+                    }
+
+                </td>
+                <td style="width:600px">@RenderBody()</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center; font-size:x-small; background-color:orange; color:white;">
+                    2013 Pragim Technologies
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

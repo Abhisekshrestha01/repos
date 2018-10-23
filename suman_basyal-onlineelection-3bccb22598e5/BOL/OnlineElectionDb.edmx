@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ElectionDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CandidateElection">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="electionId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="isApproved" Type="bit" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CapableVoter">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="electionId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="electionId" />
+          </Key>
+          <Property Name="electionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="electionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adminId" Type="int" Nullable="false" />
+          <Property Name="endDate" Type="datetime" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Nullable="false" />
+          <Property Name="votingRequestDeadline" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ElectionDB.dbo.ElectionResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ElectionResult">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="winnerId" />
+            <PropertyRef Name="datetime" />
+          </Key>
+          <Property Name="electionId" Type="int" Nullable="false" />
+          <Property Name="winnerId" Type="int" Nullable="false" />
+          <Property Name="totalVotes" Type="int" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="genderId" />
+          </Key>
+          <Property Name="genderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notId" />
+          </Key>
+          <Property Name="notId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="unseen" Type="bit" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="middleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="genderId" Type="int" />
+          <Property Name="photo" Type="image" />
+        </EntityType>
+        <EntityType Name="VoterElection">
+          <Key>
+            <PropertyRef Name="voterId" />
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="voterId" Type="int" Nullable="false" />
+          <Property Name="electionId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_candidateelection_electionid">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CandidateElection" Type="Self.CandidateElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="CandidateElection">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidateelection_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CandidateElection" Type="Self.CandidateElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CandidateElection">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_election_adminId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Election" Type="Self.Election" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Election">
+              <PropertyRef Name="adminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_electionresult_electionId">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ElectionResult" Type="Self.ElectionResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="ElectionResult">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_electionresult_winnerId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ElectionResult" Type="Self.ElectionResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ElectionResult">
+              <PropertyRef Name="winnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gender_user_genderId">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="genderId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="genderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notification_user">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RequestElectionVoter_electionid">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CapableVoter" Type="Self.CapableVoter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="CapableVoter">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RequestElectionVoter_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CapableVoter" Type="Self.CapableVoter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CapableVoter">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_electionId">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_voterid">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="voterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElectionDBModelStoreContainer">
+          <EntitySet Name="CandidateElection" EntityType="Self.CandidateElection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CapableVoter" EntityType="Self.CapableVoter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Election" EntityType="Self.Election" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoterElection" EntityType="Self.VoterElection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ElectionResult" EntityType="Self.ElectionResult" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ElectionResult].[electionId] AS [electionId], 
+    [ElectionResult].[winnerId] AS [winnerId], 
+    [ElectionResult].[totalVotes] AS [totalVotes], 
+    [ElectionResult].[datetime] AS [datetime]
+    FROM [dbo].[ElectionResult] AS [ElectionResult]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_candidateelection_electionid" Association="Self.fk_candidateelection_electionid">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="CandidateElection" EntitySet="CandidateElection" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidateelection_userId" Association="Self.fk_candidateelection_userId">
+            <End Role="User" EntitySet="User" />
+            <End Role="CandidateElection" EntitySet="CandidateElection" />
+          </AssociationSet>
+          <AssociationSet Name="fk_election_adminId" Association="Self.fk_election_adminId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Election" EntitySet="Election" />
+          </AssociationSet>
+          <AssociationSet Name="fk_electionresult_electionId" Association="Self.fk_electionresult_electionId">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="ElectionResult" EntitySet="ElectionResult" />
+          </AssociationSet>
+          <AssociationSet Name="fk_electionresult_winnerId" Association="Self.fk_electionresult_winnerId">
+            <End Role="User" EntitySet="User" />
+            <End Role="ElectionResult" EntitySet="ElectionResult" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gender_user_genderId" Association="Self.fk_gender_user_genderId">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notification_user" Association="Self.fk_notification_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RequestElectionVoter_electionid" Association="Self.fk_RequestElectionVoter_electionid">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="CapableVoter" EntitySet="CapableVoter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RequestElectionVoter_userId" Association="Self.fk_RequestElectionVoter_userId">
+            <End Role="User" EntitySet="User" />
+            <End Role="CapableVoter" EntitySet="CapableVoter" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_electionId" Association="Self.fk_voterelection_electionId">
+            <End Role="Election" EntitySet="Election" />
+            <End Role="VoterElection" EntitySet="VoterElection" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_userId" Association="Self.fk_voterelection_userId">
+            <End Role="User" EntitySet="User" />
+            <End Role="VoterElection" EntitySet="VoterElection" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_voterid" Association="Self.fk_voterelection_voterid">
+            <End Role="User" EntitySet="User" />
+            <End Role="VoterElection" EntitySet="VoterElection" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ElectionDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CandidateElection">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="electionId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="isApproved" Type="Boolean" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Election" Relationship="Self.fk_candidateelection_electionid" FromRole="CandidateElection" ToRole="Election" />
+          <NavigationProperty Name="User" Relationship="Self.fk_candidateelection_userId" FromRole="CandidateElection" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CapableVoter">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="electionId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Election" Relationship="Self.fk_RequestElectionVoter_electionid" FromRole="CapableVoter" ToRole="Election" />
+          <NavigationProperty Name="User" Relationship="Self.fk_RequestElectionVoter_userId" FromRole="CapableVoter" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Election">
+          <Key>
+            <PropertyRef Name="electionId" />
+          </Key>
+          <Property Name="electionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="electionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adminId" Type="Int32" Nullable="false" />
+          <Property Name="endDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="votingRequestDeadline" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CandidateElections" Relationship="Self.fk_candidateelection_electionid" FromRole="Election" ToRole="CandidateElection" />
+          <NavigationProperty Name="CapableVoters" Relationship="Self.fk_RequestElectionVoter_electionid" FromRole="Election" ToRole="CapableVoter" />
+          <NavigationProperty Name="User" Relationship="Self.fk_election_adminId" FromRole="Election" ToRole="User" />
+          <NavigationProperty Name="ElectionResults" Relationship="Self.fk_electionresult_electionId" FromRole="Election" ToRole="ElectionResult" />
+          <NavigationProperty Name="VoterElections" Relationship="Self.fk_voterelection_electionId" FromRole="Election" ToRole="VoterElection" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="genderId" />
+          </Key>
+          <Property Name="genderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gender1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.fk_gender_user_genderId" FromRole="Gender" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notId" />
+          </Key>
+          <Property Name="notId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="unseen" Type="Boolean" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.fk_notification_user" FromRole="Notification" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="middleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="genderId" Type="Int32" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CandidateElections" Relationship="Self.fk_candidateelection_userId" FromRole="User" ToRole="CandidateElection" />
+          <NavigationProperty Name="CapableVoters" Relationship="Self.fk_RequestElectionVoter_userId" FromRole="User" ToRole="CapableVoter" />
+          <NavigationProperty Name="Elections" Relationship="Self.fk_election_adminId" FromRole="User" ToRole="Election" />
+          <NavigationProperty Name="Gender" Relationship="Self.fk_gender_user_genderId" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Notifications" Relationship="Self.fk_notification_user" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="ElectionResults" Relationship="Self.fk_electionresult_winnerId" FromRole="User" ToRole="ElectionResult" />
+          <NavigationProperty Name="VoterElections" Relationship="Self.fk_voterelection_userId" FromRole="User" ToRole="VoterElection" />
+          <NavigationProperty Name="VoterElections1" Relationship="Self.fk_voterelection_voterid" FromRole="User" ToRole="VoterElection" />
+        </EntityType>
+        <EntityType Name="VoterElection">
+          <Key>
+            <PropertyRef Name="voterId" />
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="voterId" Type="Int32" Nullable="false" />
+          <Property Name="electionId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Election" Relationship="Self.fk_voterelection_electionId" FromRole="VoterElection" ToRole="Election" />
+          <NavigationProperty Name="User" Relationship="Self.fk_voterelection_userId" FromRole="VoterElection" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.fk_voterelection_voterid" FromRole="VoterElection" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ElectionResult">
+          <Key>
+            <PropertyRef Name="electionId" />
+            <PropertyRef Name="winnerId" />
+            <PropertyRef Name="datetime" />
+          </Key>
+          <Property Name="electionId" Type="Int32" Nullable="false" />
+          <Property Name="winnerId" Type="Int32" Nullable="false" />
+          <Property Name="totalVotes" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Election" Relationship="Self.fk_electionresult_electionId" FromRole="ElectionResult" ToRole="Election" />
+          <NavigationProperty Name="User" Relationship="Self.fk_electionresult_winnerId" FromRole="ElectionResult" ToRole="User" />
+        </EntityType>
+        <Association Name="fk_candidateelection_electionid">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CandidateElection" Type="Self.CandidateElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="CandidateElection">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidateelection_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CandidateElection" Type="Self.CandidateElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CandidateElection">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RequestElectionVoter_electionid">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="CapableVoter" Type="Self.CapableVoter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="CapableVoter">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RequestElectionVoter_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CapableVoter" Type="Self.CapableVoter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="CapableVoter">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_election_adminId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Election" Type="Self.Election" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Election">
+              <PropertyRef Name="adminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_electionresult_electionId">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="ElectionResult" Type="Self.ElectionResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="ElectionResult">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_electionId">
+          <End Role="Election" Type="Self.Election" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Election">
+              <PropertyRef Name="electionId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="electionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gender_user_genderId">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="genderId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="genderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notification_user">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_electionresult_winnerId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ElectionResult" Type="Self.ElectionResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ElectionResult">
+              <PropertyRef Name="winnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_userId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_voterelection_voterid">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VoterElection" Type="Self.VoterElection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="VoterElection">
+              <PropertyRef Name="voterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElectionDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CandidateElections" EntityType="Self.CandidateElection" />
+          <EntitySet Name="CapableVoters" EntityType="Self.CapableVoter" />
+          <EntitySet Name="Elections" EntityType="Self.Election" />
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="VoterElections" EntityType="Self.VoterElection" />
+          <EntitySet Name="ElectionResults" EntityType="Self.ElectionResult" />
+          <AssociationSet Name="fk_candidateelection_electionid" Association="Self.fk_candidateelection_electionid">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="CandidateElection" EntitySet="CandidateElections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidateelection_userId" Association="Self.fk_candidateelection_userId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CandidateElection" EntitySet="CandidateElections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RequestElectionVoter_electionid" Association="Self.fk_RequestElectionVoter_electionid">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="CapableVoter" EntitySet="CapableVoters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RequestElectionVoter_userId" Association="Self.fk_RequestElectionVoter_userId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CapableVoter" EntitySet="CapableVoters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_election_adminId" Association="Self.fk_election_adminId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Election" EntitySet="Elections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_electionresult_electionId" Association="Self.fk_electionresult_electionId">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="ElectionResult" EntitySet="ElectionResults" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_electionId" Association="Self.fk_voterelection_electionId">
+            <End Role="Election" EntitySet="Elections" />
+            <End Role="VoterElection" EntitySet="VoterElections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gender_user_genderId" Association="Self.fk_gender_user_genderId">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notification_user" Association="Self.fk_notification_user">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_electionresult_winnerId" Association="Self.fk_electionresult_winnerId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ElectionResult" EntitySet="ElectionResults" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_userId" Association="Self.fk_voterelection_userId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="VoterElection" EntitySet="VoterElections" />
+          </AssociationSet>
+          <AssociationSet Name="fk_voterelection_voterid" Association="Self.fk_voterelection_voterid">
+            <End Role="User" EntitySet="Users" />
+            <End Role="VoterElection" EntitySet="VoterElections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ElectionDBModelStoreContainer" CdmEntityContainer="ElectionDBEntities">
+          <EntitySetMapping Name="CandidateElections">
+            <EntityTypeMapping TypeName="ElectionDBModel.CandidateElection">
+              <MappingFragment StoreEntitySet="CandidateElection">
+                <ScalarProperty Name="electionId" ColumnName="electionId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="isApproved" ColumnName="isApproved" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CapableVoters">
+            <EntityTypeMapping TypeName="ElectionDBModel.CapableVoter">
+              <MappingFragment StoreEntitySet="CapableVoter">
+                <ScalarProperty Name="electionId" ColumnName="electionId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elections">
+            <EntityTypeMapping TypeName="ElectionDBModel.Election">
+              <MappingFragment StoreEntitySet="Election">
+                <ScalarProperty Name="electionId" ColumnName="electionId" />
+                <ScalarProperty Name="electionName" ColumnName="electionName" />
+                <ScalarProperty Name="adminId" ColumnName="adminId" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="votingRequestDeadline" ColumnName="votingRequestDeadline" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="ElectionDBModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="genderId" ColumnName="genderId" />
+                <ScalarProperty Name="gender1" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="ElectionDBModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="notId" ColumnName="notId" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="unseen" ColumnName="unseen" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ElectionDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="genderId" ColumnName="genderId" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoterElections">
+            <EntityTypeMapping TypeName="ElectionDBModel.VoterElection">
+              <MappingFragment StoreEntitySet="VoterElection">
+                <ScalarProperty Name="voterId" ColumnName="voterId" />
+                <ScalarProperty Name="electionId" ColumnName="electionId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElectionResults">
+            <EntityTypeMapping TypeName="ElectionDBModel.ElectionResult">
+              <MappingFragment StoreEntitySet="ElectionResult">
+                <ScalarProperty Name="electionId" ColumnName="electionId" />
+                <ScalarProperty Name="winnerId" ColumnName="winnerId" />
+                <ScalarProperty Name="totalVotes" ColumnName="totalVotes" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

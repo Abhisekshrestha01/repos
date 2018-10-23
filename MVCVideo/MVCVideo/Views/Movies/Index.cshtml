@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MVCVideo.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+<p>
+    @Html.ActionLink("Add Movie","SaveMovie","Movies",null, new { @class="btn btn-primary"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Movies
+        </th>
+        <th>
+            Genre
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Name,"Edit","Movies",new { Id = item.Id },null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.genre.Name)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>

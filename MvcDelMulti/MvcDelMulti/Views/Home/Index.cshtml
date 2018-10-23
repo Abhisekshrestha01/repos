@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MvcDelMulti.Models.Employee>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#checkAll").click(function () {
+            $("input [name ='employeeIdsToDelete']").attr("checked", this.checked);
+        });
+        $("input[name='employeeIdsToDelete']").click(function () {
+            if ($("input[name = 'employeeIdsToDelete']").length == $("input[name = 'employeeIdsToDelete']: checked").length)
+            {
+                $("checkAll").attr("checked", "checked");
+            }
+            else {
+                $("checkAll").removeattr("checked");
+            }
+
+        });
+        $("#Deletebtn").click(function () {
+            var count = $("input[name = 'employeeIdsToDelete']: checked").length);
+        if (count == 0) {
+            alert("No rows selected to delete");
+            return false;
+        }
+        else {
+            return comfirm(count + "rows will be deleted");
+        }
+        });
+    });
+</script>
+
+@using (Html.BeginForm("Delete","Home", FormMethod.Post))
+{
+    <table border="1">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkAll" />
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Email
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.EditorForModel()
+        </tbody>
+
+    </table>
+    <input type="submit" id="Deletebtn" value="Delete Selected Employees" />
+ }
+

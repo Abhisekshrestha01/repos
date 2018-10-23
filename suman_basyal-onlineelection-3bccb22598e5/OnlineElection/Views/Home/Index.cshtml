@@ -1,0 +1,318 @@
+﻿@model BOL.ViewModel.HomePageViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/Content/custom/timer.css" rel="stylesheet" />
+<script src="~/Scripts/Chart.min.js"></script>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+                <br />
+                <div>
+                    <h5>Remaining Time</h5>
+                    <div id="timer">
+                        
+                    </div>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <select class="form-control" id="graphDropDown" onchange="graphOptionChange();">
+                        <option value="line">Line Graph</option>
+                        <option value="bar">Bar Graph</option>
+                        <option value="pie">Pie Chart</option>
+                    </select>
+
+                   @Html.DropDownListFor(x=>x.electionId, Model.listElection.Select(x=> new SelectListItem{
+
+                  Text=x.Name,
+                  Value=x.Id.ToString()
+              }),"Select Election",new {@class="form-control", @onChange="electionDropDownChange();" })
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                    </button>
+                </div>
+            </div>
+
+            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+
+            <h2 class="h2">Tabular view</h2>
+            <div class="table-responsive" style="margin-bottom:100px;">
+                <table class=" table-sm table table-hover table-bordered" id="tblResult">
+                    <thead>
+                        <tr>
+                            <th>Sno</th>
+                            <th>Name</th>
+                            <th>Total Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+    
+<script src="~/Scripts/custom/timer.js"></script>
+<script>
+    var myChart = null;
+    var backgroundColor = [];
+    var labels = []
+    var data = [];
+    var endTime;
+    function loadChart() {
+       
+        var ctx = document.getElementById("myChart");
+        if (myChart != null) {
+            myChart.destroy();
+        }
+         myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels:   labels, //["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                    data: data,//[15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false,
+                }
+            }
+        });
+
+
+        //bar 
+
+
+       
+
+
+    }
+
+    function loadTable(result) {
+
+        
+        var count = 0;
+        $("#tblResult > tbody").html("");
+        for (i = 0; i < result.length; i++) {
+
+            count = parseInt(count) + 1;
+            $('#tblResult >tbody').append('<tr><td>' + count + '</td><td>' + result[i].Name + '</td><td>' + result[i].totalVotes + '</td></tr>');
+        }
+    }
+
+    function loadChartAndTable(electionId) {
+        $.ajax({
+            type: "GET",
+            url: '/Election/GetElectionResultForAdmin/',
+            dataType: "json",
+            data: { electionId: electionId },
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                console.log(result);
+                data = [];
+                labels = [];
+                if (result.length > 0) {
+                    
+                    var parsed = result[0].EndTime.split('(')[1].split(')')[0];
+                    endTime = new Date(parseInt(parsed));
+                    console.log("FULL READABLE DATE "+endTime);
+                }
+                for (i = 0; i < result.length; i++) {
+                    labels.push(result[i].Name);
+                    data.push(result[i].totalVotes);
+                }
+                generateRandomColors(data.length);
+                graphOptionChange();
+               // loadChart();
+                loadTable(result);
+                StartCountDownHome(endTime);
+            },
+            error: function (result) {
+                console.log(result);
+                console.log("An error occured");
+            }
+        });
+    }
+
+    function electionDropDownChange()
+    {
+        var electionId = $("#electionId").val();
+        loadChartAndTable(electionId);
+    }
+
+    function generateRandomColors(len) {
+        var tempList = [];
+        for (i = 0; i < len; i++) {
+            var hexVal = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+            if (tempList.indexOf(hexVal) == -1) {
+                backgroundColor.push(hexVal);
+                tempList.push(hexVal);
+            }
+        }
+        console.log(backgroundColor);
+    }
+
+    function loadPieChart() {
+        //pie-chart
+
+       
+
+        var ctx = document.getElementById("myChart");
+        if (myChart != null) {
+            myChart.destroy();
+        }
+       myChart= new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Election Vote",
+                    backgroundColor: backgroundColor,
+                    data: data
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Election Result'
+                }
+            }
+        });
+    }
+
+    function loadBarGraph() {
+        var ctx = document.getElementById("myChart");
+        if (myChart != null) {
+            myChart.destroy();
+        }
+         myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Votes',
+                    data: data,
+                    backgroundColor: backgroundColor,
+                    //borderColor: [
+                    //    'rgba(255,99,132,1)',
+                    //    'rgba(54, 162, 235, 1)',
+                    //    'rgba(255, 206, 86, 1)',
+                    //    'rgba(75, 192, 192, 1)',
+                    //    'rgba(153, 102, 255, 1)',
+                    //    'rgba(255, 159, 64, 1)'
+                    //],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    function graphOptionChange() {
+        console.log(this);
+        var graphValue = $("#graphDropDown").val();
+        switch (graphValue) {
+            case "line": {
+                loadChart();
+                break;
+            }
+            case "bar": {
+                loadBarGraph();
+                break;
+            }
+            case "pie": {
+                loadPieChart();
+                break;
+            }
+        }
+        
+    }
+    
+    
+
+    $(document).ready(function () {
+        var mostRecentElectionId = $("#electionId option")[1].value;
+        $("#electionId").val(mostRecentElectionId);
+        loadChartAndTable(mostRecentElectionId);
+
+        
+
+       
+
+    });
+
+
+    var timerFunctionHome;
+    var distanceHome;
+    function StartCountDownHome(endDate) {
+
+
+        // Set the date we're counting down to
+        //var countDownDate = endDate.getTime();
+        //console.log("DateTime :" + countDownDate);
+        //var flag = true;
+        // Update the count down every 1 second 
+
+        if (timerFunctionHome != "undefined") {
+            clearInterval(timerFunctionHome);
+
+        }
+        console.log("Timer function " + timerFunctionHome);
+        // Update the count down every 1 second
+        timerFunctionHome = setInterval(function () {
+            var countDownDate = endDate.getTime();
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distanceHome between now an the count down date
+            distanceHome = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distanceHome / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distanceHome % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distanceHome % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distanceHome % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            document.getElementById("timer").innerHTML=days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            days = "";
+            hours = "";
+            minutes = "";
+            seconds = "";
+
+            // If the count down is over, write some text 
+            if (distanceHome < 0) {
+                clearInterval(timerFunctionHome);
+                document.getElementById("timer").innerHTML="EXPIRED";
+            }
+        }, 1000);
+
+
+    }
+
+
+</script>

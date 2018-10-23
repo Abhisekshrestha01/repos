@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>API Test</title>
+    <script src="Scripts/jquery-3.2.1.js"></script>
+    <script src="Scripts/APICallerHelper.js"></script>
+</head>
+<body>
+    <fieldset>
+        <legend>API Caller</legend>
+        <p>
+            URL:<input type="text" name="txlUrl" value="" id="txtURL" style="width: 500px;" />&nbsp;&nbsp;       
+            Method:<select id="ddlMethod">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+            </select>&nbsp;&nbsp;
+            Response Type :<select id="ddlDataType">
+                <option value="application/json">JSON</option>
+                <option value="application/xml">XML</option>
+            </select>&nbsp;&nbsp;
+            Request Type :<select id="ddlContentType">
+                <option value="application/json">JSON</option>
+                <option value="application/xml">XML</option>
+            </select>
+        </p>
+        <fieldset>
+            <legend>Header Parameters</legend>
+            <div>
+                <p>Headers
+                    <input type="button" id="btnAddHeader" name="AddHeader" value="Add" /></p>
+            </div>
+            <div id="divHeaderKeys"></div>
+        </fieldset>
+        <p>Data To Post In Body</p>
+        <p>
+            <textarea rows="10" cols="200" id="txtDataToPost"></textarea>
+        </p>
+        <p style="text-align:center">
+            <input type="button" name="btnSend" value="Send" id="btnSend" style="background-color:#008000;color:white; font-size:medium;" />
+        </p>
+        <p>Response</p>
+        <p>
+            <textarea rows="10" cols="200" id="txtResponse"></textarea>
+        </p>
+    </fieldset>
+</body>
+</html>

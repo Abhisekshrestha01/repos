@@ -1,0 +1,149 @@
+﻿@model BOL.ViewModel.LoginViewModel
+@using BOL
+@{
+    ViewBag.Title = "Profile";
+    List<Gender> listGender = ViewBag.listGender;
+
+
+}
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Profile</h1>
+    <br />
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
+    </div>
+</div>
+
+
+
+
+
+@using (Html.BeginForm("UpdateProfile", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    @Html.AntiForgeryToken()
+
+<div class="">
+    @Html.HiddenFor(model=>model.userId)
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-dismissible alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            @TempData["Msg"]
+        </div>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    
+
+
+        <div class="form-group">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-6">
+                @if (Model.photo == null)
+    {
+            <img src="/Images/profile.png" id="uploadImage" style="width:100px; height:100px;" />
+
+}
+else
+{
+
+var base64 = Convert.ToBase64String(Model.photo);
+var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img src="@imgSrc" id="uploadImage" style="width:100px; height:100px;" />
+
+
+}
+                <input type="file" name="uploadImages" onchange="uploadPic(this);" class="input-files" />
+            </div>
+        </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.firstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.middleName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.middleName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.middleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control " })
+            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.email, new { @class = "form-control " })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.genderId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.DropDownListFor(model => model.genderId, listGender.Select(x => new SelectListItem() { Text = x.gender1, Value = x.genderId.ToString() }), "Select Gender", new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.genderId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-6">
+            <input type="submit" value="Update" class="btn btn-outline-secondary" onclick="return validate();" />
+        </div>
+    </div>
+</div>
+}
+
+<script type="text/javascript">
+    function uploadPic(e) {
+        readURL(e);
+    }
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#uploadImage').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    //$("#imgInp").change(function () {
+    //    readURL(this);
+    //});
+</script>
+
+
+
+
