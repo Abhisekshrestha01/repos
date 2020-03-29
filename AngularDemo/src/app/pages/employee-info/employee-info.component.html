@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="h3">
+      Employee List
+    </div>
+    <div class="row-header">
+      <div class="col-xs-2"> ID </div>
+      <div class="col-xs-2"> Firstname </div>
+      <div class="col-xs-2"> Lastname</div>
+      <div class="col-xs-2"> Gender</div>
+      <div class="col-xs-2"> Hiredate</div>
+      <div class="col-xs-2"> Email</div>
+    </div>
+    <div class="row dataRow" *ngFor="let list of EmployeeList;">
+      <div class="col-xs-2"> {{ EmployeeList.id }}</div>
+      <div class="col-xs-2"> {{EmploymentList.fname}} </div>
+      <div class="col-xs-2"> {{EmployeeList.lname}}</div>
+      <div class="col-xs-2"> {{EmployeeList.gender}}</div>
+      <div class="col-xs-2"> {{EmployeeList.hdate}}</div>
+      <div class="col-xs-2"> {{EmployeeList.email}}</div>
+    </div>
+  </div>
+</div>
